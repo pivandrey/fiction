@@ -1,5 +1,9 @@
 package library.fiction.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -22,7 +26,8 @@ public class Author {
     private String biography;
 
     @ManyToMany(mappedBy = "authors")
-    private List<Book> books;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Book> books = new ArrayList<>();
 
     public int getId() {
         return id;
