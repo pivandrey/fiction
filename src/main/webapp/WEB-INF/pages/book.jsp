@@ -17,27 +17,26 @@
         <h2>${book.name}</h2>
         <div>
             <span>Год</span>
-            <span>${book.year}</span>
         </div>
         <div>
             <span>Авторы</span>
             <ul>
-<%--                <c:forEach var="author" items="${book.authors}">--%>
-<%--                    <li>--%>
-<%--                        <a href="/author/${author.id}">${author.fullname}</a>--%>
-<%--                    </li>--%>
-<%--                </c:forEach>--%>
+                <c:forEach var="author" items="${book.authors}">
+                    <li>
+                        <a href="/author/${author.id}">${author.fullname}</a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
         <div>
             <span>Жанры</span>
             <span>${book.authors}</span>
             <ul>
-<%--                <c:forEach var="genre" items="${book.genres}">--%>
-<%--                    <li>--%>
-<%--                        <a href="/genre/${genre.id}">${genre.name}</a>--%>
-<%--                    </li>--%>
-<%--                </c:forEach>--%>
+                <c:forEach var="genre" items="${book.genres}">
+                    <li>
+                        <a href="/genre/${genre.id}">${genre.name}</a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
         <a href="/book/edit/${book.id}">Редактировать</a>
