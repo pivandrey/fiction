@@ -65,12 +65,16 @@ public class FictionController {
         return modelAndView;
     }
 
+    //   Edit entity
+
     @RequestMapping(value = "/author/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editAuthor(@PathVariable("id") int id) {
         Author author = libraryService.getAuthorById(id);
+        List<Book> books = libraryService.allBooks();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editAuthor");
         modelAndView.addObject("author", author);
+        modelAndView.addObject("booksList", books);
         return modelAndView;
     }
 
@@ -86,9 +90,13 @@ public class FictionController {
     @RequestMapping(value = "/book/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editBook(@PathVariable("id") int id) {
         Book book = libraryService.getBookById(id);
+        List<Author> authors = libraryService.allAuthors();
+        List<Genre> genres = libraryService.allGenres();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editBook");
         modelAndView.addObject("book", book);
+        modelAndView.addObject("authorsList", authors);
+        modelAndView.addObject("genresList", genres);
         return modelAndView;
     }
 
@@ -119,12 +127,14 @@ public class FictionController {
         return modelAndView;
     }
 
-
+    //    Add entity
 
     @RequestMapping(value = "/author/add", method = RequestMethod.GET)
     public ModelAndView addAuthor() {
+        List<Book> books = libraryService.allBooks();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editAuthor");
+        modelAndView.addObject("booksList", books);
         return modelAndView;
     }
 
@@ -139,8 +149,12 @@ public class FictionController {
 
     @RequestMapping(value = "/book/add", method = RequestMethod.GET)
     public ModelAndView addBook() {
+        List<Author> authors = libraryService.allAuthors();
+        List<Genre> genres = libraryService.allGenres();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editBook");
+        modelAndView.addObject("authorsList", authors);
+        modelAndView.addObject("genresList", genres);
         return modelAndView;
     }
 

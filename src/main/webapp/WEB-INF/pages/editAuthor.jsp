@@ -26,7 +26,7 @@
             <h2>Добавление автора</h2>
             <c:url value="/author/add" var="var"/>
         </c:if>
-        <form action="${var}" method="POST">
+        <form id="form" action="${var}" method="POST">
             <c:if test="${!empty author.fullname}">
                 <input type="hidden" name="id" value="${author.id}">
 
@@ -36,6 +36,25 @@
                 <input type="text" name="birthday" id="birthday" value="${author.birthday}">
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography" value="${author.biography}">
+                <label for="books">Книги</label>
+                <select name="books" multiple="multiple" id="books">
+                    <c:forEach items="${booksList}" var="book">
+                        <c:set var="isSelected" value="false" />
+                        <c:forEach items="${author.books}" var="bookSelect">
+                            <c:if test="${bookSelect.id==book.id}">
+                                <c:set var="isSelected" value="true" />
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${isSelected}">
+                                <option value="${book}" selected="selected">${book.name}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${book}">${book.name}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
 
                 <input type="submit" value="Сохранить">
             </c:if>
@@ -46,7 +65,14 @@
                 <input type="text" name="birthday" id="birthday">
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography">
-
+                <label for="books">Книги</label>
+                <select name="books[]" multiple id="books">
+                    <c:forEach var="book" items="${booksList}">
+                        <option value="${book}">
+                            <span>${book.name}</span>
+                        </option>
+                    </c:forEach>
+                </select>
                 <input type="submit" value="Сохранить">
             </c:if>
         </form>
