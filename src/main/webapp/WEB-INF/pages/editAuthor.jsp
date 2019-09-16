@@ -47,10 +47,10 @@
                         </c:forEach>
                         <c:choose>
                             <c:when test="${isSelected}">
-                                <option value="${book}" selected="selected">${book.name}</option>
+                                <option value="${book.id}" selected="selected">${book.name}</option>
                             </c:when>
                             <c:otherwise>
-                                <option value="${book}">${book.name}</option>
+                                <option value="${book.id}">${book.name}</option>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
@@ -66,9 +66,9 @@
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography">
                 <label for="books">Книги</label>
-                <select name="books[]" multiple id="books">
+                <select name="books" multiple id="books">
                     <c:forEach var="book" items="${booksList}">
-                        <option value="${book}">
+                        <option value="${book.id}">
                             <span>${book.name}</span>
                         </option>
                     </c:forEach>

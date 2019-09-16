@@ -3,33 +3,36 @@ package library.fiction.controller;
 import library.fiction.model.Author;
 import library.fiction.model.Book;
 import library.fiction.model.Genre;
-import library.fiction.service.LibraryService;
-import library.fiction.service.LibraryServiceImpl;
+import library.fiction.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class FictionController {
 
-    private LibraryService libraryService;
+    private AuthorService authorService;
+    private BookService bookService;
+    private GenreService genreService;
 
     @Autowired
-    public void setLibraryService(LibraryService libraryService) {
-        this.libraryService = libraryService;
-    }
+    public void setAuthorService(AuthorService authorService) { this.authorService = authorService; };
+
+    @Autowired
+    public void setAuthorService(BookService bookService) { this.bookService = bookService; };
+
+    @Autowired
+    public void setAuthorService(GenreService genreService) { this.genreService = genreService; };
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView library() {
-        List<Author> authors = libraryService.allAuthors();
-        List<Book> books = libraryService.allBooks();
-        List<Genre> genres = libraryService.allGenres();
+        List<Author> authors = authorService.allAuthors();
+        List<Book> books = bookService.allBooks();
+        List<Genre> genres = genreService.allGenres();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("library");
         modelAndView.addObject("authorsList", authors);
@@ -40,7 +43,7 @@ public class FictionController {
 
     @RequestMapping(value = "/author/{id}", method = RequestMethod.GET)
     public ModelAndView author(@PathVariable("id") int id) {
-        Author author = libraryService.getAuthorById(id);
+        Author author = authorService.getAuthorById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("author");
         modelAndView.addObject("author", author);
@@ -49,7 +52,7 @@ public class FictionController {
 
     @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
     public ModelAndView book(@PathVariable("id") int id) {
-        Book book = libraryService.getBookById(id);
+        Book book = bookService.getBookById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("book");
         modelAndView.addObject("book", book);
@@ -58,7 +61,7 @@ public class FictionController {
 
     @RequestMapping(value = "/genre/{id}", method = RequestMethod.GET)
     public ModelAndView genre(@PathVariable("id") int id) {
-        Genre genre = libraryService.getGenreById(id);
+        Genre genre = genreService.getGenreById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("genre");
         modelAndView.addObject("genre", genre);
@@ -69,8 +72,8 @@ public class FictionController {
 
     @RequestMapping(value = "/author/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editAuthor(@PathVariable("id") int id) {
-        Author author = libraryService.getAuthorById(id);
-        List<Book> books = libraryService.allBooks();
+        Author author = authorService.getAuthorById(id);
+        List<Book> books = bookService.allBooks();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editAuthor");
         modelAndView.addObject("author", author);
@@ -80,18 +83,24 @@ public class FictionController {
 
     @RequestMapping(value = "/author/edit", method = RequestMethod.POST)
     public ModelAndView editAuthor(@ModelAttribute("author") Author author) {
+//        List<Book> books = new ArrayList<>();
+//        for (int bookId : booksArray) {
+//            Book book = bookService.getBookById(bookId);
+//            books.add(book);
+//        }
+//        author.setBooks(books);
         ModelAndView modelAndView = new ModelAndView();
         int id = author.getId();
         modelAndView.setViewName("redirect:/author/" + id);
-        libraryService.editAuthor(author);
+        authorService.editAuthor(author);
         return modelAndView;
     }
 
     @RequestMapping(value = "/book/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editBook(@PathVariable("id") int id) {
-        Book book = libraryService.getBookById(id);
-        List<Author> authors = libraryService.allAuthors();
-        List<Genre> genres = libraryService.allGenres();
+        Book book = bookService.getBookById(id);
+        List<Author> authors = authorService.allAuthors();
+        List<Genre> genres = genreService.allGenres();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editBook");
         modelAndView.addObject("book", book);
@@ -105,13 +114,13 @@ public class FictionController {
         ModelAndView modelAndView = new ModelAndView();
         int id = book.getId();
         modelAndView.setViewName("redirect:/book/" + id);
-        libraryService.editBook(book);
+        bookService.editBook(book);
         return modelAndView;
     }
 
     @RequestMapping(value = "/genre/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editGenre(@PathVariable("id") int id) {
-        Genre genre = libraryService.getGenreById(id);
+        Genre genre = genreService.getGenreById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editGenre");
         modelAndView.addObject("genre", genre);
@@ -123,7 +132,7 @@ public class FictionController {
         ModelAndView modelAndView = new ModelAndView();
         int id = genre.getId();
         modelAndView.setViewName("redirect:/genre/" + id);
-        libraryService.editGenre(genre);
+        genreService.editGenre(genre);
         return modelAndView;
     }
 
@@ -131,7 +140,7 @@ public class FictionController {
 
     @RequestMapping(value = "/author/add", method = RequestMethod.GET)
     public ModelAndView addAuthor() {
-        List<Book> books = libraryService.allBooks();
+        List<Book> books = bookService.allBooks();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editAuthor");
         modelAndView.addObject("booksList", books);
@@ -143,14 +152,14 @@ public class FictionController {
         ModelAndView modelAndView = new ModelAndView();
         int id = author.getId();
         modelAndView.setViewName("redirect:/author/" + id);
-        libraryService.addAuthor(author);
+        authorService.addAuthor(author);
         return modelAndView;
     }
 
     @RequestMapping(value = "/book/add", method = RequestMethod.GET)
     public ModelAndView addBook() {
-        List<Author> authors = libraryService.allAuthors();
-        List<Genre> genres = libraryService.allGenres();
+        List<Author> authors = authorService.allAuthors();
+        List<Genre> genres = genreService.allGenres();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editBook");
         modelAndView.addObject("authorsList", authors);
@@ -163,7 +172,7 @@ public class FictionController {
         ModelAndView modelAndView = new ModelAndView();
         int id = book.getId();
         modelAndView.setViewName("redirect:/book/" + id);
-        libraryService.addBook(book);
+        bookService.addBook(book);
         return modelAndView;
     }
 
@@ -179,7 +188,7 @@ public class FictionController {
         ModelAndView modelAndView = new ModelAndView();
         int id = genre.getId();
         modelAndView.setViewName("redirect:/genre/" + id);
-        libraryService.addGenre(genre);
+        genreService.addGenre(genre);
         return modelAndView;
     }
 }
