@@ -29,6 +29,16 @@ public class Author {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Book> books = new ArrayList<>();
 
+    private List<Integer> booksIds = new ArrayList<>();
+
+    public List<Integer> getBooksIds() {
+        return booksIds;
+    }
+
+    public void setBooksIds(List<Integer> booksIds) {
+        this.booksIds = booksIds;
+    }
+
     public int getId() {
         return id;
     }

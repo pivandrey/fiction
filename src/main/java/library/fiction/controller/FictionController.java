@@ -149,6 +149,12 @@ public class FictionController {
 
     @RequestMapping(value = "/author/add", method = RequestMethod.POST)
     public ModelAndView addAuthor(@ModelAttribute("author") Author author) {
+        List<Book> books = new ArrayList<>();
+        for (int bookId : author.getBooksIds()) {
+            Book book = bookService.getBookById(bookId);
+            books.add(book);
+        }
+        author.setBooks(books);
         ModelAndView modelAndView = new ModelAndView();
         int id = author.getId();
         modelAndView.setViewName("redirect:/author/" + id);
