@@ -23,8 +23,8 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     @Transactional
-    public void addGenre(Genre genre) {
-        genreDAO.addGenre(genre);
+    public int addGenre(Genre genre) {
+        return genreDAO.addGenre(genre);
     }
 
     @Override

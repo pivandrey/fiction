@@ -26,9 +26,12 @@ public class GenreDAOImpl implements GenreDAO {
     }
 
     @Override
-    public void addGenre(Genre genre) {
+    public int addGenre(Genre genre) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(genre);
+        session.flush();
+
+        return genre.getId();
     }
 
     @Override

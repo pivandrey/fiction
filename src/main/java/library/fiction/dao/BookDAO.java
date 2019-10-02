@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookDAO {
     List<Book> allBooks();
-    void addBook(Book book);
+    int addBook(Book book);
     Book getBookById(int id);
     void editBook(Book book);
 }

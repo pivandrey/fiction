@@ -148,17 +148,23 @@ public class FictionController {
     }
 
     @RequestMapping(value = "/author/add", method = RequestMethod.POST)
-    public ModelAndView addAuthor(@ModelAttribute("author") Author author) {
+    public ModelAndView addAuthor(@ModelAttribute("author") Author author, @RequestParam("bookIds") int[] bookIds) {
         List<Book> books = new ArrayList<>();
-        for (int bookId : author.getBooksIds()) {
+        for (int bookId : bookIds) {
             Book book = bookService.getBookById(bookId);
             books.add(book);
+
+            List<Author> newAuthors = book.getAuthors();
+            newAuthors.add(author);
+            book.setAuthors(newAuthors);
+//            bookService.editBook(book);
         }
         author.setBooks(books);
+
         ModelAndView modelAndView = new ModelAndView();
-        int id = author.getId();
+        int id = authorService.addAuthor(author);
+
         modelAndView.setViewName("redirect:/author/" + id);
-        authorService.addAuthor(author);
         return modelAndView;
     }
 
@@ -176,9 +182,8 @@ public class FictionController {
     @RequestMapping(value = "/book/add", method = RequestMethod.POST)
     public ModelAndView addBook(@ModelAttribute("book") Book book) {
         ModelAndView modelAndView = new ModelAndView();
-        int id = book.getId();
+        int id = bookService.addBook(book);
         modelAndView.setViewName("redirect:/book/" + id);
-        bookService.addBook(book);
         return modelAndView;
     }
 
@@ -192,9 +197,8 @@ public class FictionController {
     @RequestMapping(value = "/genre/add", method = RequestMethod.POST)
     public ModelAndView addGenre(@ModelAttribute("genre") Genre genre) {
         ModelAndView modelAndView = new ModelAndView();
-        int id = genre.getId();
+        int id = genreService.addGenre(genre);
         modelAndView.setViewName("redirect:/genre/" + id);
-        genreService.addGenre(genre);
         return modelAndView;
     }
 }

@@ -23,7 +23,7 @@ public class Book {
     private int year;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "books_genres",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
@@ -31,7 +31,7 @@ public class Book {
     private List<Genre> genres = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")

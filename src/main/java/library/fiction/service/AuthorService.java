@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AuthorService {
     List<Author> allAuthors();
-    void addAuthor(Author author);
+    int addAuthor(Author author);
     Author getAuthorById(int id);
     void editAuthor(Author author);
 }
