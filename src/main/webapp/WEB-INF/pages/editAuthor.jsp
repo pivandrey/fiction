@@ -37,7 +37,7 @@
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography" value="${author.biography}">
                 <label for="books">Книги</label>
-                <select name="books" multiple="multiple" id="books">
+                <select name="bookIds" multiple="multiple" id="books">
                     <c:forEach items="${booksList}" var="book">
                         <c:set var="isSelected" value="false" />
                         <c:forEach items="${author.books}" var="bookSelect">

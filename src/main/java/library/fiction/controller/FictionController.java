@@ -15,18 +15,23 @@ import java.util.List;
 @Controller
 public class FictionController {
 
+//    @Autowired
     private AuthorService authorService;
+
+//    @Autowired
     private BookService bookService;
+
+//    @Autowired
     private GenreService genreService;
 
     @Autowired
     public void setAuthorService(AuthorService authorService) { this.authorService = authorService; };
 
     @Autowired
-    public void setAuthorService(BookService bookService) { this.bookService = bookService; };
+    public void setBookService(BookService bookService) { this.bookService = bookService; };
 
     @Autowired
-    public void setAuthorService(GenreService genreService) { this.genreService = genreService; };
+    public void setGenresService(GenreService genreService) { this.genreService = genreService; };
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView library() {
@@ -82,17 +87,11 @@ public class FictionController {
     }
 
     @RequestMapping(value = "/author/edit", method = RequestMethod.POST)
-    public ModelAndView editAuthor(@ModelAttribute("author") Author author) {
-//        List<Book> books = new ArrayList<>();
-//        for (int bookId : booksArray) {
-//            Book book = bookService.getBookById(bookId);
-//            books.add(book);
-//        }
-//        author.setBooks(books);
+    public ModelAndView editAuthor(@ModelAttribute("author") Author author, @RequestParam("bookIds") int[] bookIds) {
         ModelAndView modelAndView = new ModelAndView();
-        int id = author.getId();
-        modelAndView.setViewName("redirect:/author/" + id);
-        authorService.editAuthor(author);
+        authorService.editAuthor(author, bookIds);
+
+        modelAndView.setViewName("redirect:/author/" + author.getId());
         return modelAndView;
     }
 
@@ -149,22 +148,10 @@ public class FictionController {
 
     @RequestMapping(value = "/author/add", method = RequestMethod.POST)
     public ModelAndView addAuthor(@ModelAttribute("author") Author author, @RequestParam("bookIds") int[] bookIds) {
-        List<Book> books = new ArrayList<>();
-        for (int bookId : bookIds) {
-            Book book = bookService.getBookById(bookId);
-            books.add(book);
-
-            List<Author> newAuthors = book.getAuthors();
-            newAuthors.add(author);
-            book.setAuthors(newAuthors);
-//            bookService.editBook(book);
-        }
-        author.setBooks(books);
-
         ModelAndView modelAndView = new ModelAndView();
-        int id = authorService.addAuthor(author);
+        Author createdAuthor = authorService.createAuthor(author, bookIds);
 
-        modelAndView.setViewName("redirect:/author/" + id);
+        modelAndView.setViewName("redirect:/author/" + createdAuthor.getId());
         return modelAndView;
     }
 
