@@ -4,6 +4,7 @@ import library.fiction.dao.BookAuthorDAO;
 import library.fiction.model.Author;
 import library.fiction.model.Book;
 import library.fiction.model.BookAuthor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,12 @@ import java.util.List;
 @Service
 public class BookAuthorServiceImpl implements BookAuthorService {
     private BookAuthorDAO bookAuthorDAO;
+
+
+    @Autowired
+    public void setAuthorDAO(BookAuthorDAO bookAuthorDAO) {
+        this.bookAuthorDAO = bookAuthorDAO;
+    }
 
     @Override
     @Transactional

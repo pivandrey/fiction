@@ -18,11 +18,9 @@ public class BookAuthorDAOImpl implements BookAuthorDAO {
 
 
     @Override
-    public BookAuthor addBookAuthor(BookAuthor bookAuthor) {
+    public void addBookAuthor(BookAuthor bookAuthor) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(bookAuthor);
         session.flush();
-
-        return bookAuthor;
     }
 }
