@@ -65,7 +65,7 @@
 
     <h2>Add Genre</h2>
     <c:url value="/genre/add" var="addGenre" />
-    <a href="${addBook}">Add new genre</a>
+    <a href="${addGenre}">Add new genre</a>
 
 </body>
 </html>
