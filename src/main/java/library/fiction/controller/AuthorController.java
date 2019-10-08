@@ -70,6 +70,7 @@ public class AuthorController {
     public ModelAndView deleteAuthor(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
+
         Author author = authorService.getAuthorById(id);
         authorService.deleteAuthor(author);
         return modelAndView;

@@ -6,8 +6,14 @@ import java.util.List;
 
 public interface BookService {
     List<Book> allBooks();
-    int addBook(Book book);
-    Book getBookById(int id);
-    void editBook(Book book);
+
     List<Book> getBooksById(int[] booksIds);
+
+    Book createBook(Book book, int[] authorIds, int[] genreIds);
+
+    Book getBookById(int id);
+
+    void editBook(Book book, int[] authorIds, int[] genreIds);
+
+    void deleteBook(Book book);
 }

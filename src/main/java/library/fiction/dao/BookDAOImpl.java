@@ -25,12 +25,12 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public int addBook(Book book) {
+    public Book addBook(Book book) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(book);
         session.flush();
 
-        return book.getId();
+        return book;
     }
 
     @Override
@@ -42,6 +42,14 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void editBook(Book book) {
         Session session = sessionFactory.getCurrentSession();
+        session.clear();
         session.update(book);
+        session.flush();
+    }
+
+    @Override
+    public void deleteBook(Book book) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(book);
     }
 }

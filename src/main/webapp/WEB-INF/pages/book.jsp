@@ -30,7 +30,6 @@
         </div>
         <div>
             <span>Жанры</span>
-            <span>${book.authors}</span>
             <ul>
                 <c:forEach var="genre" items="${book.genres}">
                     <li>

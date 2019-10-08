@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +29,17 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public List<Author> allAuthors() {
         return authorDAO.allAuthors();
+    }
+
+    @Override
+    @Transactional
+    public List<Author> getAuthorsById(int[] authorIds) {
+        List<Author> authors = new ArrayList<>();
+        for (int id : authorIds) {
+            Author author = authorDAO.getAuthorById(id);
+            authors.add(author);
+        }
+        return authors;
     }
 
     @Override

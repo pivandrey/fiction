@@ -66,7 +66,7 @@
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography">
                 <label for="books">Книги</label>
-                <select name="bookIds" multiple id="bookIds">
+                <select name="bookIds" multiple id="books">
                     <c:forEach var="book" items="${booksList}">
                         <option value="${book.id}">
                             <span>${book.name}</span>

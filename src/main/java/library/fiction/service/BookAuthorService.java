@@ -13,7 +13,13 @@ public interface BookAuthorService {
 
     void addBookAuthor(Author author, List<Book> books);
 
+    void addBookAuthor(Book book, List<Author> authors);
+
     void editBookAuthor(Author author, List<Book> books);
 
+    void editBookAuthor(Book book, List<Author> authors);
+
     void deleteBookAuthor(Author author);
+
+    void deleteBookAuthor(Book book);
 }

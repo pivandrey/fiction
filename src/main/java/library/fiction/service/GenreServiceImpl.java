@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +32,17 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     public Genre getGenreById(int id) {
         return genreDAO.getGenreById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Genre> getGenresById(int[] genresIds) {
+        List<Genre> genres = new ArrayList<>();
+        for (int id : genresIds) {
+            Genre genre = genreDAO.getGenreById(id);
+            genres.add(genre);
+        }
+        return genres;
     }
 
     @Override

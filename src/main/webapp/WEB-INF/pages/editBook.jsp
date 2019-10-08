@@ -33,12 +33,70 @@
                 <input type="text" name="name" id="name" value="${book.name}">
                 <label for="year">Год</label>
                 <input type="text" name="year" id="year" value="${book.year}">
+
+                <label for="authors">Авторы</label>
+                <select name="authorIds" multiple="multiple" id="authors">
+                    <c:forEach items="${authorsList}" var="author">
+                        <c:set var="isSelected" value="false" />
+                        <c:forEach items="${book.authors}" var="authorSelect">
+                            <c:if test="${authorSelect.id==author.id}">
+                                <c:set var="isSelected" value="true" />
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${isSelected}">
+                                <option value="${author.id}" selected="selected">${author.fullname}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${author.id}">${author.fullname}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
+
+                <label for="genres">Жанры</label>
+                <select name="genreIds" multiple="multiple" id="genres">
+                    <c:forEach items="${genresList}" var="genre">
+                        <c:set var="isSelected" value="false" />
+                        <c:forEach items="${book.genres}" var="genreSelect">
+                            <c:if test="${genreSelect.id==genre.id}">
+                                <c:set var="isSelected" value="true" />
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${isSelected}">
+                                <option value="${genre.id}" selected="selected">${genre.name}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${genre.id}">${genre.name}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
             </c:if>
             <c:if test="${empty book.name}">
                 <label for="name">Название</label>
                 <input type="text" name="name" id="name">
                 <label for="year">Год</label>
                 <input type="text" name="year" id="year">
+
+                <label for="authors">Авторы</label>
+                <select name="authorIds" multiple id="authors">
+                    <c:forEach var="author" items="${authorsList}">
+                        <option value="${author.id}">
+                            <span>${author.fullname}</span>
+                        </option>
+                    </c:forEach>
+                </select>
+
+                <label for="genres">Жанры</label>
+                <select name="genreIds" multiple id="genres">
+                    <c:forEach var="genre" items="${genresList}">
+                        <option value="${genre.id}">
+                            <span>${genre.name}</span>
+                        </option>
+                    </c:forEach>
+                </select>
             </c:if>
             <input type="submit" value="Сохранить">
         </form>

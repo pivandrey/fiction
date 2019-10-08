@@ -8,10 +8,7 @@ import library.fiction.service.BookService;
 import library.fiction.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -50,11 +47,13 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/edit", method = RequestMethod.POST)
-    public ModelAndView editBook(@ModelAttribute("book") Book book) {
+    public ModelAndView editBook(@ModelAttribute("book") Book book,
+                                 @RequestParam("authorIds") int[] authorIds,
+                                 @RequestParam("genreIds") int[] genreIds) {
         ModelAndView modelAndView = new ModelAndView();
-        int id = book.getId();
-        modelAndView.setViewName("redirect:/book/" + id);
-        bookService.editBook(book);
+        bookService.editBook(book, authorIds, genreIds);
+
+        modelAndView.setViewName("redirect:/book/" + book.getId());
         return modelAndView;
     }
 
@@ -70,10 +69,23 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/add", method = RequestMethod.POST)
-    public ModelAndView addBook(@ModelAttribute("book") Book book) {
+    public ModelAndView addBook(@ModelAttribute("book") Book book,
+                                @RequestParam("authorIds") int[] authorIds,
+                                @RequestParam("genreIds") int[] genreIds) {
         ModelAndView modelAndView = new ModelAndView();
-        int id = bookService.addBook(book);
-        modelAndView.setViewName("redirect:/book/" + id);
+        Book createdBook = bookService.createBook(book, authorIds, genreIds);
+
+        modelAndView.setViewName("redirect:/book/" + createdBook.getId());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/book/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteBook(@PathVariable("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/");
+
+        Book book = bookService.getBookById(id);
+        bookService.deleteBook(book);
         return modelAndView;
     }
 }

@@ -39,9 +39,17 @@ public class BookAuthorServiceImpl implements BookAuthorService {
             BookAuthor bookAuthor = new BookAuthor();
             bookAuthor.setAuthor_id(author.getId());
             bookAuthor.setBook_id(book.getId());
-            System.out.print("Create book_author: ");
-            System.out.print(author.getId() + ", ");
-            System.out.println(book.getId());
+            bookAuthorDAO.addBookAuthor(bookAuthor);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void addBookAuthor(Book book, List<Author> authors) {
+        for (Author author : authors) {
+            BookAuthor bookAuthor = new BookAuthor();
+            bookAuthor.setAuthor_id(author.getId());
+            bookAuthor.setBook_id(book.getId());
             bookAuthorDAO.addBookAuthor(bookAuthor);
         }
     }
@@ -55,8 +63,25 @@ public class BookAuthorServiceImpl implements BookAuthorService {
 
     @Override
     @Transactional
+    public void editBookAuthor(Book book, List<Author> authors) {
+        deleteBookAuthor(book);
+        addBookAuthor(book, authors);
+    }
+
+    @Override
+    @Transactional
     public void deleteBookAuthor(Author author) {
         List<BookAuthor> bookAuthorList = getBookAuthorList(author);
+
+        for (BookAuthor bookAuthor : bookAuthorList) {
+            bookAuthorDAO.deleteBookAuthor(bookAuthor);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteBookAuthor(Book book) {
+        List<BookAuthor> bookAuthorList = getBookAuthorList(book);
 
         for (BookAuthor bookAuthor : bookAuthorList) {
             bookAuthorDAO.deleteBookAuthor(bookAuthor);
