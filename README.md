@@ -60,6 +60,7 @@ USE fiction;
 
 CREATE TABLE books_genres
 (
+    id int(10) PRIMARY KEY AUTO_INCREMENT,
     book_id int(10),
     genre_id int(10)
 )
@@ -76,6 +77,7 @@ USE fiction;
 
 CREATE TABLE books_authors
 (
+    id int(10) PRIMARY KEY AUTO_INCREMENT,
     book_id int(10),
     author_id int(10)
 )
