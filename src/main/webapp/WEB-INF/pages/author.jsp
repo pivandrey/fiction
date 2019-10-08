@@ -35,6 +35,7 @@
             </ul>
         </div>
         <a href="/author/edit/${author.id}">Редактировать</a>
+        <a href="/author/delete/${author.id}">Удалить</a>
     </div>
 </body>
 </html>

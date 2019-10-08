@@ -35,7 +35,7 @@ public class AuthorServiceImpl implements AuthorService {
     public Author createAuthor(Author author, int[] bookIds) {
         List<Book> books = bookService.getBooksById(bookIds);
         Author createdAuthor = authorDAO.addAuthor(author);
-        bookAuthorService.addBookForAuthor(createdAuthor, books);
+        bookAuthorService.addBookAuthor(createdAuthor, books);
         author.setBooks(books);
         return createdAuthor;
     }
@@ -50,8 +50,15 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public void editAuthor(Author author, int[] bookIds) {
         List<Book> books = bookService.getBooksById(bookIds);
-        bookAuthorService.addBookForAuthor(author, books);
+        bookAuthorService.editBookAuthor(author, books);
         author.setBooks(books);
         authorDAO.editAuthor(author);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuthor(Author author) {
+        bookAuthorService.deleteBookAuthor(author);
+        authorDAO.deleteAuthor(author);
     }
 }

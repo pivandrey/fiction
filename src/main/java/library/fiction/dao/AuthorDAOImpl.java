@@ -43,6 +43,14 @@ public class AuthorDAOImpl implements AuthorDAO {
     @Override
     public void editAuthor(Author author) {
         Session session = sessionFactory.getCurrentSession();
+        session.clear();
         session.update(author);
+        session.flush();
+    }
+
+    @Override
+    public void deleteAuthor(Author author) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(author);
     }
 }

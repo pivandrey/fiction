@@ -22,7 +22,19 @@ public class BookAuthorServiceImpl implements BookAuthorService {
 
     @Override
     @Transactional
-    public void addBookForAuthor(Author author, List<Book> books) {
+    public List<BookAuthor> getBookAuthorList(Author author) {
+        return bookAuthorDAO.getBookAuthorList(author);
+    }
+
+    @Override
+    @Transactional
+    public List<BookAuthor> getBookAuthorList(Book book) {
+        return bookAuthorDAO.getBookAuthorList(book);
+    }
+
+    @Override
+    @Transactional
+    public void addBookAuthor(Author author, List<Book> books) {
         for (Book book : books) {
             BookAuthor bookAuthor = new BookAuthor();
             bookAuthor.setAuthor_id(author.getId());
@@ -31,6 +43,23 @@ public class BookAuthorServiceImpl implements BookAuthorService {
             System.out.print(author.getId() + ", ");
             System.out.println(book.getId());
             bookAuthorDAO.addBookAuthor(bookAuthor);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void editBookAuthor(Author author, List<Book> books) {
+        deleteBookAuthor(author);
+        addBookAuthor(author, books);
+    }
+
+    @Override
+    @Transactional
+    public void deleteBookAuthor(Author author) {
+        List<BookAuthor> bookAuthorList = getBookAuthorList(author);
+
+        for (BookAuthor bookAuthor : bookAuthorList) {
+            bookAuthorDAO.deleteBookAuthor(bookAuthor);
         }
     }
 }

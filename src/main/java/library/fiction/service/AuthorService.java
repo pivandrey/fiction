@@ -9,4 +9,5 @@ public interface AuthorService {
     Author createAuthor(Author author, int[] bookIds);
     Author getAuthorById(int id);
     void editAuthor(Author author, int[] bookIds);
+    void deleteAuthor(Author author);
 }
