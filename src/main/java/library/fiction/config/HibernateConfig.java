@@ -32,6 +32,10 @@ public class HibernateConfig {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+        properties.put("hibernate.use_sql_comments", environment.getRequiredProperty("hibernate.use_sql_comments"));
+        properties.put("hibernate.sql", environment.getRequiredProperty("hibernate.SQL"));
+        properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+        properties.put("hibernate.type.descriptor.sql.BasicBinder", environment.getRequiredProperty("hibernate.type.descriptor.sql.BasicBinder"));
         return properties;
     }
 

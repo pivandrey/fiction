@@ -53,8 +53,8 @@ public class BookServiceImpl implements BookService {
         List<Author> authors = authorService.getAuthorsById(authorIds);
         List<Genre> genres = genreService.getGenresById(genreIds);
         Book createdBook = bookDAO.addBook(book);
-        bookAuthorService.addBookAuthor(createdBook, authors);
         bookGenreService.addBookGenre(createdBook, genres);
+        bookAuthorService.addBookAuthor(createdBook, authors);
         return createdBook;
     }
 
@@ -72,6 +72,7 @@ public class BookServiceImpl implements BookService {
         bookAuthorService.editBookAuthor(book, authors);
         bookGenreService.editBookGenre(book, genres);
         book.setAuthors(authors);
+        book.setGenres(genres);
         bookDAO.editBook(book);
     }
 

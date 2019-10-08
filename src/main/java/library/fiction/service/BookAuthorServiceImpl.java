@@ -12,13 +12,8 @@ import java.util.List;
 
 @Service
 public class BookAuthorServiceImpl implements BookAuthorService {
-    private BookAuthorDAO bookAuthorDAO;
-
-
     @Autowired
-    public void setAuthorDAO(BookAuthorDAO bookAuthorDAO) {
-        this.bookAuthorDAO = bookAuthorDAO;
-    }
+    private BookAuthorDAO bookAuthorDAO;
 
     @Override
     @Transactional
