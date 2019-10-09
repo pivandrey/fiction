@@ -1,0 +1,36 @@
+body {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Georgia, serif;
+}
+
+h1 {
+    color: red;
+}
+
+.block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    border-spacing: 0 10px;
+    font:  bold 100% Georgia, serif;
+    margin: 20px auto;
+    background: #eee;
+    text-align: center;
+    vertical-align: middle;
+    width: 50%;
+    border: 2px solid #ccc;
+    box-shadow: 2px 2px 8px 0px #333;
+}
+
+.mainRow {
+    border-bottom: 1px solid black;
+}

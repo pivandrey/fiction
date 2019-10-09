@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Author</title>
+    <link href="<c:url value="/res/author.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>

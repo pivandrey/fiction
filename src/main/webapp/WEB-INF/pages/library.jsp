@@ -10,62 +10,69 @@
 <html>
 <head>
     <title>Library</title>
+    <link href="<c:url value="/res/library.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    This is a library: you're see authors, books, genres.
-    <h2>Authors</h2>
-    <table>
-        <tr>
-            <th>fullname</th>
-            <th>birthday</th>
-            <th>biography</th>
-        </tr>
-        <c:forEach var="author" items="${authorsList}">
+    <h1>This is a library: you're see authors, books, genres.</h1>
+    <div class="block">
+        <h2>Авторы</h2>
+
+        <c:url value="/author/add" var="addAuthor" />
+        <a href="${addAuthor}">Добавить автора</a>
+
+        <table>
             <tr>
-                <td><a href="/author/${author.id}">${author.fullname}</a></td>
-                <td>${author.birthday}</td>
-                <td>${author.biography}</td>
+                <th class="mainRow">Автор</th>
+                <th class="mainRow">Год рождения</th>
+                <th class="mainRow">Биография</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="author" items="${authorsList}">
+                <tr>
+                    <td><a href="/author/${author.id}">${author.fullname}</a></td>
+                    <td>${author.birthday}</td>
+                    <td>${author.biography}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 
-    <h2>Add author</h2>
-    <c:url value="/author/add" var="addAuthor" />
-    <a href="${addAuthor}">Add new author</a>
+    <div class="block">
+        <h2>Книги</h2>
 
-    <h2>Books</h2>
-    <table>
-        <tr>
-            <th>name</th>
-            <th>year</th>
-        </tr>
-        <c:forEach var="book" items="${booksList}">
+        <c:url value="/book/add" var="addBook" />
+        <a href="${addBook}">Добавить книгу</a>
+
+        <table>
             <tr>
-                <td><a href="/book/${book.id}">${book.name}</a></td>
-                <td>${book.year}</td>
+                <th class="mainRow">Название</th>
+                <th class="mainRow">Год</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="book" items="${booksList}">
+                <tr>
+                    <td><a href="/book/${book.id}">${book.name}</a></td>
+                    <td>${book.year}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 
-    <h2>Add book</h2>
-    <c:url value="/book/add" var="addBook" />
-    <a href="${addBook}">Add new book</a>
+    <div class="block">
+        <h2>Жанры</h2>
 
-    <h2>Genres</h2>
-    <table>
-        <tr>
-            <th>name</th>
-        </tr>
-        <c:forEach var="genre" items="${genresList}">
+        <c:url value="/genre/add" var="addGenre" />
+        <a href="${addGenre}">Добавить жанр</a>
+
+        <table>
             <tr>
-                <td><a href="/genre/${genre.id}">${genre.name}</a></td>
+                <th class="mainRow">Название</th>
             </tr>
-        </c:forEach>
-    </table>
-
-    <h2>Add Genre</h2>
-    <c:url value="/genre/add" var="addGenre" />
-    <a href="${addGenre}">Add new genre</a>
+            <c:forEach var="genre" items="${genresList}">
+                <tr>
+                    <td><a href="/genre/${genre.id}">${genre.name}</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 
 </body>
 </html>
