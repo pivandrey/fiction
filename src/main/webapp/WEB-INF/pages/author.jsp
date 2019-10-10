@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Author</title>
+    <link href="<c:url value="/res/author.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>
@@ -35,6 +36,7 @@
             </ul>
         </div>
         <a href="/author/edit/${author.id}">Редактировать</a>
+        <a href="/author/delete/${author.id}">Удалить</a>
     </div>
 </body>
 </html>

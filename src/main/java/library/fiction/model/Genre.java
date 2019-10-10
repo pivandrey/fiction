@@ -1,5 +1,9 @@
 package library.fiction.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -14,6 +18,10 @@ public class Genre {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "genres")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Book> books = new ArrayList<>();
 
     public int getId() {
         return id;
