@@ -43,4 +43,11 @@ public class FictionController {
         modelAndView.setViewName("login");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/403", method = RequestMethod.POST)
+    public ModelAndView notAccess() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("403");
+        return modelAndView;
+    }
 }
