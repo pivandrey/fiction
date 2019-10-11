@@ -4,7 +4,7 @@ import library.fiction.model.Author;
 
 import java.util.List;
 
-public interface AuthorDAO {
+public interface AuthorDAO extends GenericDAO {
     List<Author> allAuthors();
 
     Author addAuthor(Author author);

@@ -9,48 +9,36 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AuthorDAOImpl implements AuthorDAO {
+public class AuthorDAOImpl extends GenericDAOImpl implements AuthorDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public AuthorDAOImpl() {
+        super(Author.class);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Author> allAuthors() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Author").list();
+        return getAll("from Author");
     }
 
     @Override
     public Author addAuthor(Author author) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(author);
-        session.flush();
-
+        save(author);
         return author;
     }
 
     @Override
     public Author getAuthorById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Author.class, id);
+        return (Author)findById(id);
     }
 
     @Override
     public void editAuthor(Author author) {
-        Session session = sessionFactory.getCurrentSession();
-        session.clear();
-        session.update(author);
-        session.flush();
+        update(author);
     }
 
     @Override
     public void deleteAuthor(Author author) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(author);
+        delete(author);
     }
 }
