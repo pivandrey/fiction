@@ -11,42 +11,29 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class BookGenreDAOImpl implements BookGenreDAO {
+public class BookGenreDAOImpl extends GenericDAOImpl implements BookGenreDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BookGenreDAOImpl() {
+        super(BookGenre.class);
     }
 
     @Override
     public List<BookGenre> getBookGenreList(Genre genre) {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(BookGenre.class);
-        List<BookGenre> bookGenreList = criteria.add(Restrictions.eq("genre_id", genre.getId())).list();
-        return bookGenreList;
+        return getListById("genre_id", genre.getId());
     }
 
     @Override
     public List<BookGenre> getBookGenreList(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(BookGenre.class);
-        List<BookGenre> bookGenreList = criteria.add(Restrictions.eq("book_id", book.getId())).list();
-        return bookGenreList;
+        return getListById("book_id", book.getId());
     }
 
     @Override
     public void addBookGenre(BookGenre bookGenre) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(bookGenre);
-        session.flush();
+        save(bookGenre);
     }
 
     @Override
     public void deleteBookGenre(BookGenre bookGenre) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(bookGenre);
-        session.flush();
+        delete(bookGenre);
     }
 }

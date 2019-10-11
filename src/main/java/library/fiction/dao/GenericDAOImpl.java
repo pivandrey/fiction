@@ -1,9 +1,7 @@
 package library.fiction.dao;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -77,7 +75,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     @Override
-    public T findById(long id) {
+    public T findById(int id) {
         Session session =  sessionFactory.openSession();
         Transaction tx = null;
         T entity;
@@ -107,6 +105,28 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         try {
             tx = session.beginTransaction();
             entities = session.createQuery(query).list();
+            tx.commit();
+        } catch (HibernateException err) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            err.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return entities;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> getListById(String property, int id) {
+        Session session =  sessionFactory.openSession();
+        Transaction tx = null;
+        List<T> entities = new ArrayList<>();
+        Criteria criteria = session.createCriteria(clazz);
+        try {
+            tx = session.beginTransaction();
+            entities = criteria.add(Restrictions.eq(property, id)).list();
             tx.commit();
         } catch (HibernateException err) {
             if (tx != null) {

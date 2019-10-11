@@ -16,7 +16,6 @@ public class AuthorDAOImpl extends GenericDAOImpl implements AuthorDAO {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Author> allAuthors() {
         return getAll("from Author");
     }
