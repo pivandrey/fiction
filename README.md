@@ -52,7 +52,9 @@ CREATE TABLE books_genres
 (
     id SERIAL PRIMARY KEY,
     book_id integer,
-    genre_id integer
+    genre_id integer,
+    constraint fk_books_genres_books foreign key(book_id) references books(book_id),
+    constraint fk_books_genres_genres foreign key(genre_id) references genres(genre_id)
 )
 
 INSERT INTO books_genres (book_id, genre_id)
@@ -67,7 +69,9 @@ CREATE TABLE books_authors
 (
     id SERIAL PRIMARY KEY,
     book_id integer,
-    author_id integer
+    author_id integer,
+    constraint fk_books_authors_books foreign key(book_id) references books(book_id),
+    constraint fk_books_authors_authors foreign key(author_id) references authors(author_id)
 )
 
 INSERT INTO books_authors (book_id, author_id)
