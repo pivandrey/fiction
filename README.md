@@ -91,7 +91,10 @@ CREATE TABLE users
 
 INSERT INTO users (username, password, enabled)
 VALUES
-('admin','$2a$10$LOqePml/koRGsk2YAIOFI.1YNKZg7EsQ5BAIuYP1nWOyYRl21dlne',true);
+('root','$2y$12$thm/3Kn5DudoKhAqWZzK..6yUCI4apkZCI9rRtfZiJ2hSseupFgs6',true),
+('creator','$2y$12$4R45e0SY4VfMHzUJJ2Tcu.EBFre6.ppOix0Fu/z550pwL9xk9MSwK',true),
+('visitor','$2y$12$.0KqkQbatEyYX8W8QhqXlu9KMpqNpCXRMP/VyrotPs1AsJbX64Gta',true),
+('guest','$2y$12$bOgMbwynspQtOeZz7TNYeelJVhqzyLkA4yQcwqFuCPJElUdJky2Pa',true);
 ```
 
 ```
@@ -104,5 +107,11 @@ CREATE TABLE authorities
 
 INSERT INTO authorities  (username, authority)
 VALUES
-('admin','ROLE_ADMIN');
+('root','ROLE_CREATOR'),
+('root','ROLE_VISITOR'),
+('root','ROLE_EDITOR'),
+('creator','ROLE_CREATOR'),
+('creator','ROLE_EDITOR'),
+('visitor','ROLE_VISITOR'),
+('guest','ROLE_GUEST');
 ```
