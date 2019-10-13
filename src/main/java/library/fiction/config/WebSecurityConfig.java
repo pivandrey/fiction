@@ -28,45 +28,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
-//                .and()
-//                .authorizeRequests().antMatchers("/login**").permitAll()
-//                .and()
-//                .formLogin().loginPage("/login").loginProcessingUrl("/loginAction").permitAll()
-//                .and()
-//                .logout().logoutSuccessUrl("/login").permitAll()
-//                .and()
-//                .csrf().disable();
-
-
+                .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().hasAnyRole("ROLE_ADMIN", "ROLE_USER")
-                .and()
-                .formLogin()
-                .loginPage("/login").failureUrl("/login?error")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .loginProcessingUrl("/loginAction")
-                .permitAll()
-                .and()
-                .logout()
-                .deleteCookies("remove")
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and().exceptionHandling().accessDeniedPage("/403")
-                .and().csrf().disable();
-
-
-//                .authorizeRequests().anyRequest().hasAnyRole("ROLE_ADMIN", "ROLE_USER")
-//                .and().formLogin()
-//                .loginPage("/login").failureUrl("/login?error")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .permitAll()
-//                .and().logout().logoutSuccessUrl("/login?logout")
-//                .permitAll()
-//                .and().csrf()
-//                .and().exceptionHandling().accessDeniedPage("/403");
+                    .antMatchers("/").access("hasAnyRole('ROLE_CREATOR', 'ROLE_EDITOR', 'ROLE_VISITOR', 'ROLE_GUEST')")
+                    .antMatchers("/**/add").access("hasRole('ROLE_CREATOR')")
+                    .antMatchers("/**/edit/**").access("hasRole('ROLE_EDITOR')")
+                    .antMatchers("/author/**", "/book/**", "/genre/**").access("hasRole('ROLE_VISITOR')")
+                    .and()
+                        .formLogin()
+                        .loginPage("/login").failureUrl("/login?error")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/", true)
+                        .loginProcessingUrl("/loginAction")
+                        .permitAll()
+                    .and()
+                        .logout()
+                        .deleteCookies("remove")
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                    .and()
+                        .exceptionHandling().accessDeniedPage("/403")
+                    .and();
     }
-
 }

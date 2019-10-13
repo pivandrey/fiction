@@ -37,7 +37,7 @@ public class FictionController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST } )
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
