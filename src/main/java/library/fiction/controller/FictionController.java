@@ -36,4 +36,18 @@ public class FictionController {
         modelAndView.addObject("genresList", genres);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST } )
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/403", method = RequestMethod.POST)
+    public ModelAndView notAccess() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("403");
+        return modelAndView;
+    }
 }
