@@ -6,7 +6,7 @@ import library.fiction.model.Genre;
 
 import java.util.List;
 
-public interface BookGenreDAO {
+public interface BookGenreDAO extends GenericDAO {
     List<BookGenre> getBookGenreList(Genre genre);
 
     List<BookGenre> getBookGenreList(Book book);

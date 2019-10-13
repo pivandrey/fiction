@@ -13,42 +13,29 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class BookAuthorDAOImpl implements BookAuthorDAO {
+public class BookAuthorDAOImpl extends GenericDAOImpl implements BookAuthorDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BookAuthorDAOImpl() {
+        super(BookAuthor.class);
     }
 
     @Override
     public List<BookAuthor> getBookAuthorList(Author author) {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(BookAuthor.class);
-        List<BookAuthor> bookAuthorList = criteria.add(Restrictions.eq("author_id", author.getId())).list();
-        return bookAuthorList;
+        return getListById("author_id", author.getId());
     }
 
     @Override
     public List<BookAuthor> getBookAuthorList(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(BookAuthor.class);
-        List<BookAuthor> bookAuthorList = criteria.add(Restrictions.eq("book_id", book.getId())).list();
-        return bookAuthorList;
+        return getListById("book_id", book.getId());
     }
 
     @Override
     public void addBookAuthor(BookAuthor bookAuthor) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(bookAuthor);
-        session.flush();
+        save(bookAuthor);
     }
 
     @Override
     public void deleteBookAuthor(BookAuthor bookAuthor) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(bookAuthor);
-        session.flush();
+        delete(bookAuthor);
     }
 }

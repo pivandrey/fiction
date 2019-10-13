@@ -4,7 +4,7 @@ import library.fiction.model.Genre;
 
 import java.util.List;
 
-public interface GenreDAO {
+public interface GenreDAO extends GenericDAO {
     List<Genre> allGenres();
     int addGenre(Genre genre);
     Genre getGenreById(int id);
