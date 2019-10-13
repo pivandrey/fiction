@@ -76,3 +76,29 @@ VALUES
     (2, 2),
     (3, 3);
 ```
+
+```
+CREATE TABLE users
+(
+    username VARCHAR(50) NOT NULL PRIMARY KEY,
+    password VARCHAR(100) NOT NULL,
+    enabled boolean NOT NULL
+);
+
+INSERT INTO users (username, password, enabled)
+VALUES
+('admin','$2a$10$LOqePml/koRGsk2YAIOFI.1YNKZg7EsQ5BAIuYP1nWOyYRl21dlne',true);
+```
+
+```
+CREATE TABLE authorities
+(
+    username VARCHAR(50) NOT NULL,
+    authority VARCHAR(50) NOT NULL,
+    constraint fk_authorities_users foreign key(username) references users(username)
+);
+
+INSERT INTO authorities  (username, authority)
+VALUES
+('admin','ROLE_ADMIN');
+```
