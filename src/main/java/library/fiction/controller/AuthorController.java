@@ -5,8 +5,11 @@ import library.fiction.model.Book;
 import library.fiction.service.AuthorService;
 import library.fiction.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +23,10 @@ public class AuthorController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    @Qualifier("authorValidator")
+    private Validator authorValidator;
 
     @RequestMapping(value = "/author/{id}", method = RequestMethod.GET)
     public ModelAndView author(@PathVariable("id") int id) {
@@ -54,7 +61,10 @@ public class AuthorController {
     public ModelAndView addAuthor() {
         List<Book> books = bookService.allBooks();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("editAuthor");
+        modelAndView.setViewName("addAuthor");
+
+        /** Для form:form необходимо добавлять пустой объект в модель */
+        modelAndView.addObject("author", new Author());
         modelAndView.addObject("booksList", books);
         return modelAndView;
     }
@@ -66,12 +76,19 @@ public class AuthorController {
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();
+        authorValidator.validate(author, bindingResult);
+
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("editAuthor");
+            System.out.println("Has errors");
+            modelAndView.setViewName("addAuthor");
+
+            System.out.print("Binding result: ");
+            System.out.println(bindingResult);
+
             return modelAndView;
         }
-        Author createdAuthor = authorService.createAuthor(author, bookIds);
 
+        Author createdAuthor = authorService.createAuthor(author, bookIds);
         modelAndView.setViewName("redirect:/author/" + createdAuthor.getId());
         return modelAndView;
     }

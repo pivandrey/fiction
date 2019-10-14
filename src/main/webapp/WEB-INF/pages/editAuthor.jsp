@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <c:if test="${empty author.fullname}">
@@ -32,8 +33,10 @@
 
                 <label for="fullname">Полное имя</label>
                 <input type="text" name="fullname" id="fullname" value="${author.fullname}">
+                <form:errors path="fullname" />
                 <label for="birthday">Год рождения</label>
                 <input type="text" name="birthday" id="birthday" value="${author.birthday}">
+                <form:errors path="birthday" />
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography" value="${author.biography}">
                 <label for="books">Книги</label>
@@ -61,10 +64,13 @@
             <c:if test="${empty author.fullname}">
                 <label for="fullname">Полное имя</label>
                 <input type="text" name="fullname" id="fullname">
+                <form:errors path="fullname" />
                 <label for="birthday">Год рождения</label>
                 <input type="text" name="birthday" id="birthday">
+                <form:errors path="birthday" />
                 <label for="biography">Биография</label>
                 <input type="text" name="biography" id="biography">
+                <form:errors path="biography" />
                 <label for="books">Книги</label>
                 <select name="bookIds" multiple id="books">
                     <c:forEach var="book" items="${booksList}">
