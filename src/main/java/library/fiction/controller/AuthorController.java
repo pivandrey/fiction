@@ -6,9 +6,11 @@ import library.fiction.service.AuthorService;
 import library.fiction.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -58,8 +60,16 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/author/add", method = RequestMethod.POST)
-    public ModelAndView addAuthor(@ModelAttribute("author") Author author, @RequestParam("bookIds") int[] bookIds) {
+    public ModelAndView addAuthor(
+            @Valid @ModelAttribute("author") Author author,
+            @RequestParam("bookIds") int[] bookIds,
+            BindingResult bindingResult
+    ) {
         ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("editAuthor");
+            return modelAndView;
+        }
         Author createdAuthor = authorService.createAuthor(author, bookIds);
 
         modelAndView.setViewName("redirect:/author/" + createdAuthor.getId());
