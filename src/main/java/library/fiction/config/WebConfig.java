@@ -28,11 +28,4 @@ public class WebConfig implements WebMvcConfigurer {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-//
-//    @Bean
-//    public MessageSource messageSource() {
-//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-//        messageSource.setBasename("/WEB-INF/messages");
-//        return messageSource;
-//    }
 }

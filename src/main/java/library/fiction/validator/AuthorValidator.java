@@ -15,14 +15,15 @@ public class AuthorValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "biography", "biography.required");
-
         Author author = (Author) obj;
         if (author.getFullname().length() < 2) {
-            errors.rejectValue("fullname", "fullname.lessThanTwoSymbols", new Object[]{"'fullname'"}, "fullname must be more than 2 symbols");
+            errors.rejectValue("fullname", "fullname.lessThanTwoSymbols", new Object[]{"'fullname'"}, "Полное имя должно быть не менее 2 символов");
         }
         if((author.getBirthday() + "").length() < 4) {
-            errors.rejectValue("birthday", "birthday.lessThanFourDigit");
+            errors.rejectValue("birthday", "birthday.lessThanFourDigit", new Object[]{"'birthday'"}, "Год рождения не менее 4 символов");
+        }
+        if (author.getBiography().length() < 1) {
+            errors.rejectValue("biography", "biography.isRequired", new Object[]{"'biography'"}, "Заполните биографию");
         }
     }
 }

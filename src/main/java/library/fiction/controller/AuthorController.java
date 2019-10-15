@@ -72,7 +72,7 @@ public class AuthorController {
     @RequestMapping(value = "/author/add", method = RequestMethod.POST)
     public ModelAndView addAuthor(
             @Valid @ModelAttribute("author") Author author,
-            @RequestParam("bookIds") int[] bookIds,
+            @RequestParam(value = "bookIds", required = false) int[] bookIds,
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();

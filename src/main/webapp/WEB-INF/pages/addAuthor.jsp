@@ -25,20 +25,24 @@
             <form:label path="fullname">Полное имя</form:label>
             <form:input type="text" path="fullname" id="fullname" />
             <form:errors path="fullname" />
+
             <form:label path="birthday">Год рождения</form:label>
             <form:input type="text" path="birthday" id="birthday" />
             <form:errors path="birthday" />
+
             <form:label path="biography">Биография</form:label>
             <form:input type="text" path="biography" id="biography" />
             <form:errors path="biography" />
-<%--            <form:label path="bookIds">Книги</form:label>--%>
-<%--            <form:select path="bookIds" multiple="true" id="books">--%>
-<%--                <c:forEach var="book" items="${booksList}">--%>
-<%--                    <form:option value="${book.id}">--%>
-<%--                        <span>${book.name}</span>--%>
-<%--                    </form:option>--%>
-<%--                </c:forEach>--%>
-<%--            </form:select>--%>
+
+            <form:label path="bookIds">Книги</form:label>
+            <form:select path="bookIds" multiple="true" id="books">
+                <c:forEach var="book" items="${booksList}">
+                    <form:option value="${book.id}">
+                        <span>${book.name}</span>
+                    </form:option>
+                </c:forEach>
+            </form:select>
+
             <form:button type="submit" value="Сохранить" />
         </form:form>
     </div>
