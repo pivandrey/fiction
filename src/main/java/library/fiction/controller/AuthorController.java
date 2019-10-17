@@ -1,5 +1,6 @@
 package library.fiction.controller;
 
+import library.fiction.editor.BookEditor;
 import library.fiction.model.Author;
 import library.fiction.model.Book;
 import library.fiction.service.AuthorService;
@@ -9,10 +10,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,6 +25,11 @@ public class AuthorController {
 
     @Autowired
     private BookService bookService;
+
+    @InitBinder
+    protected void setupConverter(final HttpServletRequest request, final ServletRequestDataBinder binder) {
+        binder.registerCustomEditor(Book.class, new BookEditor());
+    }
 
     @Autowired
     @Qualifier("authorValidator")
@@ -76,6 +83,7 @@ public class AuthorController {
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println("entry to controller");
         authorValidator.validate(author, bindingResult);
 
         if (bindingResult.hasErrors()) {

@@ -37,6 +37,17 @@ public class Author {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Book> books = new ArrayList<>();
 
+    @Transient
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     public int getId() {
         return id;
     }

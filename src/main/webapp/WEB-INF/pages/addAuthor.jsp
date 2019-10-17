@@ -34,8 +34,8 @@
             <form:input type="text" path="biography" id="biography" />
             <form:errors path="biography" />
 
-            <form:label path="bookIds">Книги</form:label>
-            <form:select path="bookIds" multiple="true" id="books">
+            <form:label path="book">Книги</form:label>
+            <form:select path="book" multiple="true" id="book">
                 <c:forEach var="book" items="${booksList}">
                     <form:option value="${book.id}">
                         <span>${book.name}</span>
