@@ -79,7 +79,6 @@ public class AuthorController {
     @RequestMapping(value = "/author/add", method = RequestMethod.POST)
     public ModelAndView addAuthor(
             @Valid @ModelAttribute("author") Author author,
-            @RequestParam(value = "bookIds", required = false) int[] bookIds,
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();
@@ -96,7 +95,7 @@ public class AuthorController {
             return modelAndView;
         }
 
-        Author createdAuthor = authorService.createAuthor(author, bookIds);
+        Author createdAuthor = authorService.createAuthor(author);
         modelAndView.setViewName("redirect:/author/" + createdAuthor.getId());
         return modelAndView;
     }

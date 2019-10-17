@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Book getBookById(int id) {
+        System.out.println("Get book from DAO");
         return bookDAO.getBookById(id);
     }
 

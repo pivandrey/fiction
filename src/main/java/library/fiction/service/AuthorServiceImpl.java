@@ -44,11 +44,10 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
-    public Author createAuthor(Author author, int[] bookIds) {
-        List<Book> books = bookService.getBooksById(bookIds);
+    public Author createAuthor(Author author) {
         Author createdAuthor = authorDAO.addAuthor(author);
+        List<Book> books = createdAuthor.getBooks();
         bookAuthorService.addBookAuthor(createdAuthor, books);
-        author.setBooks(books);
         return createdAuthor;
     }
 
