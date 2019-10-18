@@ -46,8 +46,8 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public Author createAuthor(Author author) {
         Author createdAuthor = authorDAO.addAuthor(author);
-        List<Book> books = createdAuthor.getBooks();
-        bookAuthorService.addBookAuthor(createdAuthor, books);
+//        List<Book> books = createdAuthor.getBooks();
+//        bookAuthorService.addBookAuthor(createdAuthor, books);
         return createdAuthor;
     }
 

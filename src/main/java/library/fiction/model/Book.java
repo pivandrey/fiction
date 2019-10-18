@@ -1,11 +1,12 @@
 package library.fiction.model;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "books")
@@ -32,6 +33,7 @@ public class Book {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
@@ -78,8 +80,8 @@ public class Book {
         this.authors = authors;
     }
 
-    @Override
-    public String toString() {
-        return getId() + ' ' + getName() + ' ' + getYear() + ' ' + getGenres() + ' ' + getAuthors();
-    }
+//    @Override
+//    public String toString() {
+//        return getId() + ' ' + getName() + ' ' + getYear() + ' ' + getGenres() + ' ' + getAuthors();
+//    }
 }

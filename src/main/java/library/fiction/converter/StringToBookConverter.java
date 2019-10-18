@@ -7,7 +7,10 @@ import org.springframework.core.convert.converter.Converter;
 
 public class StringToBookConverter implements Converter<String, Book> {
 
-    @Autowired
+    public StringToBookConverter(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     private BookService bookService;
 
     @Override
@@ -24,6 +27,7 @@ public class StringToBookConverter implements Converter<String, Book> {
         Book book = bookService.getBookById(Integer.parseInt(source));
 //        Book book = new Book();
         System.out.println("after call service");
+        System.out.println(book);
         return book;
     }
 }

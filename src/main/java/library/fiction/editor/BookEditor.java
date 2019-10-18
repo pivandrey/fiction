@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookEditor extends PropertyEditorSupport {
+    public BookEditor(BookService bookService) {
+        super();
+        this.bookService = bookService;
+    }
 
-    @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {

@@ -1,0 +1,14 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+label:not(:nth-last-child(1)) {
+    margin-bottom: 10px;
+}
+
+button {
+    margin-top: 10px;
+}
+

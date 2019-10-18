@@ -16,26 +16,28 @@
     <c:if test="${!empty author.fullname}">
         <title>Edit Author</title>
     </c:if>
+    <title>Добавление автора</title>
+    <link href="<c:url value="/res/addAuthor.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>
         <h2>Добавление автора</h2>
         <c:url value="/author/add" var="var" />
         <form:form action="${var}" modelAttribute="author" method="POST">
-            <form:label path="fullname">Полное имя</form:label>
-            <form:input type="text" path="fullname" id="fullname" />
+            <form:label path="fullname" cssClass="label">Полное имя</form:label>
+            <form:input type="text" path="fullname" id="fullname" cssClass="input" />
             <form:errors path="fullname" />
 
-            <form:label path="birthday">Год рождения</form:label>
+            <form:label path="birthday" cssClass="label">Год рождения</form:label>
             <form:input type="text" path="birthday" id="birthday" />
             <form:errors path="birthday" />
 
-            <form:label path="biography">Биография</form:label>
+            <form:label path="biography" cssClass="label">Биография</form:label>
             <form:input type="text" path="biography" id="biography" />
             <form:errors path="biography" />
 
-            <form:label path="book">Книги</form:label>
-            <form:select path="book" multiple="true" id="book">
+            <form:label path="books" cssClass="label">Книги</form:label>
+            <form:select path="books" multiple="true" id="books">
                 <c:forEach var="book" items="${booksList}">
                     <form:option value="${book.id}">
                         <span>${book.name}</span>
@@ -43,7 +45,7 @@
                 </c:forEach>
             </form:select>
 
-            <form:button type="submit" value="Сохранить" />
+            <form:button type="submit">Сохранить</form:button>
         </form:form>
     </div>
 </body>

@@ -1,6 +1,8 @@
 package library.fiction.config;
 
 import library.fiction.converter.StringToBookConverter;
+import library.fiction.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,6 +20,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = "library.fiction")
 public class WebConfig implements WebMvcConfigurer {
 
+    private final BookService bookService;
+
+    @Autowired
+    public WebConfig(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/res/**").addResourceLocations("/res/");
@@ -31,8 +40,8 @@ public class WebConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToBookConverter());
-    }
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addConverter(new StringToBookConverter(bookService));
+//    }
 }

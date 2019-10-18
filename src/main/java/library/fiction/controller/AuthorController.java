@@ -28,7 +28,7 @@ public class AuthorController {
 
     @InitBinder
     protected void setupConverter(final HttpServletRequest request, final ServletRequestDataBinder binder) {
-        binder.registerCustomEditor(Book.class, new BookEditor());
+        binder.registerCustomEditor(Book.class, new BookEditor(bookService));
     }
 
     @Autowired
@@ -70,8 +70,12 @@ public class AuthorController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("addAuthor");
 
+        Author newAuthor = new Author();
+        newAuthor.setBook(books.get(0));
+        modelAndView.addObject("author", newAuthor);
+
         /** Для form:form необходимо добавлять пустой объект в модель */
-        modelAndView.addObject("author", new Author());
+//        modelAndView.addObject("author", new Author());
         modelAndView.addObject("booksList", books);
         return modelAndView;
     }
@@ -96,6 +100,9 @@ public class AuthorController {
         }
 
         Author createdAuthor = authorService.createAuthor(author);
+        List<Book> books = author.getBooks();
+        System.out.print("books: ");
+        System.out.println(books);
         modelAndView.setViewName("redirect:/author/" + createdAuthor.getId());
         return modelAndView;
     }
