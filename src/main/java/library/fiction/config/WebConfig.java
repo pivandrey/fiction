@@ -39,9 +39,4 @@ public class WebConfig implements WebMvcConfigurer {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        registry.addConverter(new StringToBookConverter(bookService));
-//    }
 }

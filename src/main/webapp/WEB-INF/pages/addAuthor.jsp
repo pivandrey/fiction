@@ -10,12 +10,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <c:if test="${empty author.fullname}">
-        <title>Add Author</title>
-    </c:if>
-    <c:if test="${!empty author.fullname}">
-        <title>Edit Author</title>
-    </c:if>
     <title>Добавление автора</title>
     <link href="<c:url value="/res/addAuthor.css"/>" rel="stylesheet" type="text/css" />
 </head>

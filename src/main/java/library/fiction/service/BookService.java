@@ -9,11 +9,11 @@ public interface BookService {
 
     List<Book> getBooksById(int[] booksIds);
 
-    Book createBook(Book book, int[] authorIds, int[] genreIds);
+    Book createBook(Book book);
 
     Book getBookById(int id);
 
-    void editBook(Book book, int[] authorIds, int[] genreIds);
+    void editBook(Book book);
 
     void deleteBook(Book book);
 }

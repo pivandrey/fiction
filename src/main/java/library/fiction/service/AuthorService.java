@@ -13,7 +13,7 @@ public interface AuthorService {
 
     Author getAuthorById(int id);
 
-    void editAuthor(Author author, int[] bookIds);
+    void editAuthor(Author author);
 
     void deleteAuthor(Author author);
 }

@@ -56,9 +56,21 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/author/edit", method = RequestMethod.POST)
-    public ModelAndView editAuthor(@ModelAttribute("author") Author author, @RequestParam("bookIds") int[] bookIds) {
+    public ModelAndView editAuthor(
+            @Valid @ModelAttribute("author") Author author,
+            BindingResult bindingResult
+    ) {
         ModelAndView modelAndView = new ModelAndView();
-        authorService.editAuthor(author, bookIds);
+        authorValidator.validate(author, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            List<Book> books = bookService.allBooks();
+            modelAndView.setViewName("editAuthor");
+            modelAndView.addObject("booksList", books);
+            return modelAndView;
+        }
+
+        authorService.editAuthor(author);
 
         modelAndView.setViewName("redirect:/author/" + author.getId());
         return modelAndView;
@@ -67,15 +79,11 @@ public class AuthorController {
     @RequestMapping(value = "/author/add", method = RequestMethod.GET)
     public ModelAndView addAuthor() {
         List<Book> books = bookService.allBooks();
+        Author author = new Author();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("addAuthor");
-
-        Author newAuthor = new Author();
-        newAuthor.setBook(books.get(0));
-        modelAndView.addObject("author", newAuthor);
-
-        /** Для form:form необходимо добавлять пустой объект в модель */
-//        modelAndView.addObject("author", new Author());
+        modelAndView.addObject("author", author);
         modelAndView.addObject("booksList", books);
         return modelAndView;
     }
@@ -86,23 +94,16 @@ public class AuthorController {
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("entry to controller");
         authorValidator.validate(author, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            System.out.println("Has errors");
+            List<Book> books = bookService.allBooks();
             modelAndView.setViewName("addAuthor");
-
-            System.out.print("Binding result: ");
-            System.out.println(bindingResult);
-
+            modelAndView.addObject("booksList", books);
             return modelAndView;
         }
 
         Author createdAuthor = authorService.createAuthor(author);
-        List<Book> books = author.getBooks();
-        System.out.print("books: ");
-        System.out.println(books);
         modelAndView.setViewName("redirect:/author/" + createdAuthor.getId());
         return modelAndView;
     }
