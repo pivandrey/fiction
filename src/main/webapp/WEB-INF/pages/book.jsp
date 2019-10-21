@@ -10,37 +10,47 @@
 <html>
 <head>
     <title>Book</title>
+    <link href="<c:url value="/res/entity.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div>
+    <div class="root">
         <a href="/">На главную</a>
-        <h2>${book.name}</h2>
-        <div>
-            <span>Год</span>
-            <span>${book.year}</span>
+        <h1>${book.name}</h1>
+        <table>
+            <tr>
+                <th class="first"><span>Год</span></th>
+                <td><span>${book.year}</span></td>
+            </tr>
+            <tr>
+                <th class="first"><span>Авторы</span></th>
+                <td>
+                    <ul>
+                        <c:forEach var="author" items="${book.authors}">
+                            <li>
+                                <a href="/author/${author.id}">${author.fullname}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th class="first"><span>Жанры</span></th>
+                <td>
+                    <ul>
+                        <c:forEach var="genre" items="${book.genres}">
+                            <li>
+                                <a href="/genre/${genre.id}">${genre.name}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <div class="buttons">
+            <a href="/book/edit/${book.id}">Редактировать</a>
+            <a href="/book/delete/${book.id}">Удалить</a>
         </div>
-        <div>
-            <span>Авторы</span>
-            <ul>
-                <c:forEach var="author" items="${book.authors}">
-                    <li>
-                        <a href="/author/${author.id}">${author.fullname}</a>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-        <div>
-            <span>Жанры</span>
-            <ul>
-                <c:forEach var="genre" items="${book.genres}">
-                    <li>
-                        <a href="/genre/${genre.id}">${genre.name}</a>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-        <a href="/book/edit/${book.id}">Редактировать</a>
-        <a href="/book/delete/${book.id}">Удалить</a>
     </div>
 </body>
 </html>

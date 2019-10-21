@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>Редактирование автора</title>
-    <link href="<c:url value="/res/addAuthor.css" />" rel="stylesheet" type="text/css" />
+    <link href="<c:url value="/res/edit.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>

@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Редактирование жанра</title>
+    <link href="<c:url value="/res/edit.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>
