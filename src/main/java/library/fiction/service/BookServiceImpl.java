@@ -44,11 +44,11 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Book createBook(Book book) {
-        List<Author> authors = book.getAuthors();
-        List<Genre> genres = book.getGenres();
+//        List<Author> authors = book.getAuthors();
+//        List<Genre> genres = book.getGenres();
         Book createdBook = bookDAO.addBook(book);
-        bookGenreService.addBookGenre(createdBook, genres);
-        bookAuthorService.addBookAuthor(createdBook, authors);
+//        bookGenreService.addBookGenre(createdBook, genres);
+//        bookAuthorService.addBookAuthor(createdBook, authors);
         return createdBook;
     }
 
@@ -61,12 +61,12 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public void editBook(Book book) {
-        List<Author> authors = book.getAuthors();
-        List<Genre> genres = book.getGenres();
-        bookAuthorService.editBookAuthor(book, authors);
-        bookGenreService.editBookGenre(book, genres);
-        book.setAuthors(authors);
-        book.setGenres(genres);
+//        List<Author> authors = book.getAuthors();
+//        List<Genre> genres = book.getGenres();
+//        bookAuthorService.editBookAuthor(book, authors);
+//        bookGenreService.editBookGenre(book, genres);
+//        book.setAuthors(authors);
+//        book.setGenres(genres);
         bookDAO.editBook(book);
     }
 

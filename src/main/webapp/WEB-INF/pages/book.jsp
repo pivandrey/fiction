@@ -17,6 +17,7 @@
         <h2>${book.name}</h2>
         <div>
             <span>Год</span>
+            <span>${book.year}</span>
         </div>
         <div>
             <span>Авторы</span>
@@ -39,6 +40,7 @@
             </ul>
         </div>
         <a href="/book/edit/${book.id}">Редактировать</a>
+        <a href="/book/delete/${book.id}">Удалить</a>
     </div>
 </body>
 </html>

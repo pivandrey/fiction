@@ -17,5 +17,6 @@
         <h2>${genre.name}</h2>
     </div>
     <a href="/genre/edit/${genre.id}">Редактировать</a>
+    <a href="/genre/delete/${genre.id}">Удалить</a>
 </body>
 </html>

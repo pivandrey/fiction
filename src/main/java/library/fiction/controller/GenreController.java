@@ -83,4 +83,14 @@ public class GenreController {
         modelAndView.setViewName("redirect:/genre/" + id);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/genre/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteGenre(@PathVariable("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/");
+
+        Genre genre = genreService.getGenreById(id);
+        genreService.deleteGenre(genre);
+        return modelAndView;
+    }
 }

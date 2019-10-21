@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,8 +35,8 @@ public class BookController {
 
     @InitBinder
     protected void setupConverter(final HttpServletRequest request, final ServletRequestDataBinder binder) {
-        binder.registerCustomEditor(Book.class, new AuthorEditor(authorService));
-        binder.registerCustomEditor(Book.class, new GenreEditor(genreService));
+        binder.registerCustomEditor(Author.class, new AuthorEditor(authorService));
+        binder.registerCustomEditor(Genre.class, new GenreEditor(genreService));
     }
 
     @Autowired
@@ -66,7 +67,7 @@ public class BookController {
 
     @RequestMapping(value = "/book/edit", method = RequestMethod.POST)
     public ModelAndView editBook(
-            @ModelAttribute("book") Book book,
+            @Valid @ModelAttribute("book") Book book,
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();
@@ -103,11 +104,12 @@ public class BookController {
 
     @RequestMapping(value = "/book/add", method = RequestMethod.POST)
     public ModelAndView addBook(
-            @ModelAttribute("book") Book book,
+            @Valid @ModelAttribute("book") Book book,
             BindingResult bindingResult
     ) {
         ModelAndView modelAndView = new ModelAndView();
         bookValidator.validate(book, bindingResult);
+
 
         if (bindingResult.hasErrors()) {
             List<Author> authors = authorService.allAuthors();
@@ -117,6 +119,8 @@ public class BookController {
             modelAndView.addObject("genresList", genres);
             return modelAndView;
         }
+
+        List<Author> authors = book.getAuthors();
 
         Book createdBook = bookService.createBook(book);
         modelAndView.setViewName("redirect:/book/" + createdBook.getId());

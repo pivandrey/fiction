@@ -25,6 +25,7 @@ public class Book {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinTable(name = "books_genres",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
