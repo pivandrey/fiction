@@ -18,5 +18,8 @@ public class GenreValidator implements Validator {
         if (genre.getName().length() < 2) {
             errors.rejectValue("name", "name.lessThanTwoSymbols", new Object[]{"'name'"}, "Название должно быть не менее 2 символов");
         }
+        if (genre.getName().contains("\\[A-Za-z0-9]+")) {
+            errors.rejectValue("name", "name.notRussian", new Object[]{"'name'"}, "Название не должно состоять из латинских букв и цифр");
+        }
     }
 }

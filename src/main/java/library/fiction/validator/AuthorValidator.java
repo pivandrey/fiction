@@ -19,11 +19,25 @@ public class AuthorValidator implements Validator {
         if (author.getFullname().length() < 2) {
             errors.rejectValue("fullname", "fullname.lessThanTwoSymbols", new Object[]{"'fullname'"}, "Полное имя должно быть не менее 2 символов");
         }
-        if((author.getBirthday() + "").length() < 4) {
+        if (author.getFullname().matches("\\[A-Za-z0-9]+")) {
+            errors.rejectValue("fullname", "fullname.notRussian", new Object[]{"'fullname'"}, "Полное имя не должно состоять из латинских букв и цифр");
+        }
+
+        if (Integer.toString(author.getBirthday()).length() != 4) {
             errors.rejectValue("birthday", "birthday.lessThanFourDigit", new Object[]{"'birthday'"}, "Год рождения не менее 4 символов");
         }
+        if (author.getBirthday() < 1500) {
+            errors.rejectValue("birthday", "birthday.lessThan1500", new Object[]{"'birthday'"}, "Год рождения не менее 1500");
+        }
+        if (author.getBirthday() > 2019) {
+            errors.rejectValue("birthday", "birthday.moreThan2019", new Object[]{"'birthday'"}, "Год рождения не более 2019");
+        }
+
         if (author.getBiography().length() < 1) {
             errors.rejectValue("biography", "biography.isRequired", new Object[]{"'biography'"}, "Заполните биографию");
+        }
+        if (author.getBiography().matches("\\[A-Za-z0-9]+")) {
+            errors.rejectValue("biography", "biography.notRussian", new Object[]{"'biography'"}, "Биография не должна состоять из латинских букв и цифр");
         }
     }
 }
