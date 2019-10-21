@@ -30,11 +30,6 @@ public class HibernateConfig {
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.connection.driver_class", environment.getRequiredProperty("jdbc.driverClassName"));
-        properties.put("hibernate.connection.url", environment.getRequiredProperty("jdbc.url"));
-        properties.put("hibernate.connection.username", environment.getRequiredProperty("jdbc.username"));
-        properties.put("hibernate.connection.password", environment.getRequiredProperty("jdbc.password"));
-
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.use_sql_comments", environment.getRequiredProperty("hibernate.use_sql_comments"));

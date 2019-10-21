@@ -4,7 +4,7 @@ import library.fiction.model.Book;
 
 import java.util.List;
 
-public interface BookDAO {
+public interface BookDAO extends GenericDAO {
     List<Book> allBooks();
 
     Book addBook(Book book);

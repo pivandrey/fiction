@@ -1,11 +1,16 @@
 package library.fiction.model;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
+import javax.validation.Validation;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "authors")
@@ -17,9 +22,13 @@ public class Author {
     private int id;
 
     @Column(name = "fullname")
+    @NotNull(message="Имя должно быть задано")
+    @Size(min = 2, max = 50, message = "Имя должно быть больше 2 символов")
     private String fullname;
 
     @Column(name = "birthday")
+    @NotNull(message="Дата рождения должна быть задана")
+    @Digits(integer=4, fraction=0, message = "Не более 4-х знаков")
     private int birthday;
 
     @Column(name = "biography")
@@ -28,6 +37,17 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Book> books = new ArrayList<>();
+
+    @Transient
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     public int getId() {
         return id;

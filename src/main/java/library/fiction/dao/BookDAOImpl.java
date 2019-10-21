@@ -9,47 +9,39 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class BookDAOImpl implements BookDAO {
-    private SessionFactory sessionFactory;
+public class BookDAOImpl extends GenericDAOImpl implements BookDAO {
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BookDAOImpl() {
+        super(Book.class);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Book> allBooks() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Book").list();
+        return getAll("from Book");
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Book addBook(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(book);
-        session.flush();
-
+        save(book);
         return book;
     }
 
     @Override
     public Book getBookById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Book.class, id);
+        return (Book)findById(id);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void editBook(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.clear();
-        session.update(book);
-        session.flush();
+        update(book);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void deleteBook(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(book);
+        delete(book);
     }
 }

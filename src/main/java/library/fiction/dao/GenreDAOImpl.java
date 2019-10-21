@@ -9,40 +9,36 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class GenreDAOImpl implements GenreDAO {
+public class GenreDAOImpl extends GenericDAOImpl implements GenreDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public GenreDAOImpl() {
+        super(Genre.class);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Genre> allGenres() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Genre").list();
+        return getAll("from Genre");
     }
 
     @Override
     public int addGenre(Genre genre) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(genre);
-        session.flush();
-
+        save(genre);
         return genre.getId();
     }
 
     @Override
     public Genre getGenreById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Genre.class, id);
+        return (Genre)findById(id);
     }
 
     @Override
     public void editGenre(Genre genre) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(genre);
+        update(genre);
+    }
+
+    @Override
+    public void deleteGenre(Genre genre) {
+        delete(genre);
     }
 }

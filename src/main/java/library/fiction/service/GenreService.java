@@ -14,4 +14,6 @@ public interface GenreService {
     Genre getGenreById(int id);
 
     void editGenre(Genre genre);
+
+    void deleteGenre(Genre genre);
 }

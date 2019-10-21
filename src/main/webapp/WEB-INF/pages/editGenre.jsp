@@ -7,37 +7,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <c:if test="${empty genre.name}">
-        <title>Add Genre</title>
-    </c:if>
-    <c:if test="${!empty genre.name}">
-        <title>Edit Genre</title>
-    </c:if>
+    <title>Редактирование жанра</title>
+    <link href="<c:url value="/res/edit.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>
-        <c:if test="${!empty genre.name}">
-            <h2>${genre.name}</h2>
-            <c:url value="/genre/edit" var="var"/>
-        </c:if>
-        <c:if test="${empty genre.name}">
-            <h2>Добавление жанра</h2>
-            <c:url value="/genre/add" var="var"/>
-        </c:if>
-        <form action="${var}" method="POST">
-            <c:if test="${!empty genre.name}">
-                <input type="hidden" name="id" value="${genre.id}">
-                <label for="name">Название</label>
-                <input type="text" name="name" id="name" value="${genre.name}">
-            </c:if>
-            <c:if test="${empty genre.name}">
-                <label for="name">Название</label>
-                <input type="text" name="name" id="name">
-            </c:if>
-            <input type="submit" value="Сохранить">
-        </form>
+        <h2>${genre.name}</h2>
+        <c:url value="/genre/edit" var="var"/>
+        <form:form action="${var}" modelAttribute="genre" method="POST">
+            <form:input type="hidden" path="id" value="${genre.id}" />
+
+            <form:label path="name" cssClass="label">Название</form:label>
+            <form:input type="text" path="name" id="name" cssClass="input" value="${genre.name}" />
+            <form:errors path="name" />
+
+            <form:button type="submit">Сохранить</form:button>
+        </form:form>
     </div>
 </body>
 </html>

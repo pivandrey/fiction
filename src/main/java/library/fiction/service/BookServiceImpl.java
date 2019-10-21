@@ -16,13 +16,7 @@ public class BookServiceImpl implements BookService {
     private BookDAO bookDAO;
 
     @Autowired
-    private AuthorService authorService;
-
-    @Autowired
     private BookAuthorService bookAuthorService;
-
-    @Autowired
-    private GenreService genreService;
 
     @Autowired
     private BookGenreService bookGenreService;
@@ -49,12 +43,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Book createBook(Book book, int[] authorIds, int[] genreIds) {
-        List<Author> authors = authorService.getAuthorsById(authorIds);
-        List<Genre> genres = genreService.getGenresById(genreIds);
+    public Book createBook(Book book) {
+//        List<Author> authors = book.getAuthors();
+//        List<Genre> genres = book.getGenres();
         Book createdBook = bookDAO.addBook(book);
-        bookGenreService.addBookGenre(createdBook, genres);
-        bookAuthorService.addBookAuthor(createdBook, authors);
+//        bookGenreService.addBookGenre(createdBook, genres);
+//        bookAuthorService.addBookAuthor(createdBook, authors);
         return createdBook;
     }
 
@@ -66,13 +60,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public void editBook(Book book, int[] authorIds, int[] genreIds) {
-        List<Author> authors = authorService.getAuthorsById(authorIds);
-        List<Genre> genres = genreService.getGenresById(genreIds);
-        bookAuthorService.editBookAuthor(book, authors);
-        bookGenreService.editBookGenre(book, genres);
-        book.setAuthors(authors);
-        book.setGenres(genres);
+    public void editBook(Book book) {
+//        List<Author> authors = book.getAuthors();
+//        List<Genre> genres = book.getGenres();
+//        bookAuthorService.editBookAuthor(book, authors);
+//        bookGenreService.editBookGenre(book, genres);
+//        book.setAuthors(authors);
+//        book.setGenres(genres);
         bookDAO.editBook(book);
     }
 
