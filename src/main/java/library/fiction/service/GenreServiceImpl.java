@@ -14,6 +14,9 @@ public class GenreServiceImpl implements GenreService {
     private GenreDAO genreDAO;
 
     @Autowired
+    private BookGenreService bookGenreService;
+
+    @Autowired
     public void setGenreDAO(GenreDAO genreDAO) { this.genreDAO = genreDAO; };
 
     @Override
@@ -49,5 +52,12 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     public void editGenre(Genre genre) {
         genreDAO.editGenre(genre);
+    }
+
+    @Override
+    @Transactional
+    public void deleteGenre(Genre genre) {
+        bookGenreService.deleteBookGenre(genre);
+        genreDAO.deleteGenre(genre);
     }
 }

@@ -12,8 +12,7 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Spring MVC 5 + Spring Security 5 + Hibernate 5 example</h1>
-    <h4>Login Form</h4>
+    <h2>Login Form</h2>
 
     <form action='<spring:url value="/loginAction"/>' method="post">
         <table>
@@ -30,6 +29,43 @@
             </tr>
         </table>
     </form>
+
+    <table>
+        <tr>
+            <td>№</td>
+            <td>name</td>
+            <td>password</td>
+            <td>roles</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>root</td>
+            <td>root</td>
+            <td>ROLE_VISITOR, ROLE_EDITOR, ROLE_CREATOR</td>
+            <td>Can do all actions</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>creator</td>
+            <td>creator</td>
+            <td>ROLE_EDITOR, ROLE_CREATOR</td>
+            <td>Can edit and create, but not can see entities</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>visitor</td>
+            <td>visitor</td>
+            <td>ROLE_VISITOR</td>
+            <td>Only can see entities</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>guest</td>
+            <td>guest</td>
+            <td>ROLE_GUEST</td>
+            <td>Only can login</td>
+        </tr>
+    </table>
 
     <br/>
 </body>

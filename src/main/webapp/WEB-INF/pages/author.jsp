@@ -10,33 +10,40 @@
 <html>
 <head>
     <title>Author</title>
-    <link href="<c:url value="/res/author.css"/>" rel="stylesheet" type="text/css" />
+    <link href="<c:url value="/res/entity.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div>
+    <div class="root">
         <a href="/">На главную</a>
-        <h2>${author.fullname}</h2>
-        <div>
-            <span>Дата рождения</span>
-            <span>${author.birthday}</span>
+        <h1>${author.fullname}</h1>
+        <table>
+            <tr>
+                <th class="first"><span>Дата рождения</span></th>
+                <td><span>${author.birthday}</span></td>
+            </tr>
+            <tr>
+                <th class="first"><span>Биография</span></th>
+                <td><span>${author.biography}</span></td>
+            </tr>
+            <tr>
+                <th class="first"><span>Книги</span></th>
+                <td>
+                    <ul>
+                        <c:forEach var="book" items="${author.books}">
+                            <li>
+                                <a href="/book/${book.id}">${book.name}</a>
+                                <span>${book.year}</span>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <div class="buttons">
+            <a href="/author/edit/${author.id}">Редактировать</a>
+            <a href="/author/delete/${author.id}">Удалить</a>
         </div>
-        <div>
-            <span>Биография</span>
-            <span>${author.biography}</span>
-        </div>
-        <div>
-            <span>Книги</span>
-            <ul>
-                <c:forEach var="book" items="${author.books}">
-                    <li>
-                        <a href="/book/${book.id}">${book.name}</a>
-                        <span>${book.year}</span>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-        <a href="/author/edit/${author.id}">Редактировать</a>
-        <a href="/author/delete/${author.id}">Удалить</a>
     </div>
 </body>
 </html>

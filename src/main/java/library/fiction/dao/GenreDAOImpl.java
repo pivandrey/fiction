@@ -36,4 +36,9 @@ public class GenreDAOImpl extends GenericDAOImpl implements GenreDAO {
     public void editGenre(Genre genre) {
         update(genre);
     }
+
+    @Override
+    public void deleteGenre(Genre genre) {
+        delete(genre);
+    }
 }

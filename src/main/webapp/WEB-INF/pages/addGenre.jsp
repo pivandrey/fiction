@@ -10,18 +10,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Редактирование жанра</title>
-    <link href="<c:url value="/res/edit.css" />" rel="stylesheet" type="text/css" />
+    <title>Добавление жанра</title>
+    <link href="<c:url value="/res/edit.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div>
-        <h2>${genre.name}</h2>
-        <c:url value="/genre/edit" var="var"/>
+        <h2>Добавление жанра</h2>
+        <c:url value="/genre/add" var="var" />
         <form:form action="${var}" modelAttribute="genre" method="POST">
-            <form:input type="hidden" path="id" value="${genre.id}" />
-
             <form:label path="name" cssClass="label">Название</form:label>
-            <form:input type="text" path="name" id="name" cssClass="input" value="${genre.name}" />
+            <form:input type="text" path="name" id="name" cssClass="input" />
             <form:errors path="name" />
 
             <form:button type="submit">Сохранить</form:button>

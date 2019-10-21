@@ -40,6 +40,9 @@ public class BookGenreServiceImpl implements BookGenreService {
     @Override
     @Transactional
     public void addBookGenre(Book book, List<Genre> genres) {
+        System.out.println("call addBookGenre");
+        System.out.print("genre: ");
+        System.out.println(genres);
         for (Genre genre : genres) {
             BookGenre bookGenre = new BookGenre();
             bookGenre.setGenre_id(genre.getId());

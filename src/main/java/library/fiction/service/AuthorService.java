@@ -9,11 +9,11 @@ public interface AuthorService {
 
     List<Author> getAuthorsById(int[] authorIds);
 
-    Author createAuthor(Author author, int[] bookIds);
+    Author createAuthor(Author author);
 
     Author getAuthorById(int id);
 
-    void editAuthor(Author author, int[] bookIds);
+    void editAuthor(Author author);
 
     void deleteAuthor(Author author);
 }

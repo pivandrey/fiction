@@ -10,12 +10,16 @@
 <html>
 <head>
     <title>Genre</title>
+    <link href="<c:url value="/res/entity.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div>
+    <div class="root">
         <a href="/">На главную</a>
-        <h2>${genre.name}</h2>
+        <h1>${genre.name}</h1>
+        <div class="buttons">
+            <a href="/genre/edit/${genre.id}">Редактировать</a>
+            <a href="/genre/delete/${genre.id}">Удалить</a>
+        </div>
     </div>
-    <a href="/genre/edit/${genre.id}">Редактировать</a>
 </body>
 </html>

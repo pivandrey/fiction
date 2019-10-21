@@ -6,7 +6,12 @@ import java.util.List;
 
 public interface GenreDAO extends GenericDAO {
     List<Genre> allGenres();
+
     int addGenre(Genre genre);
+
     Genre getGenreById(int id);
+
     void editGenre(Genre genre);
+
+    void deleteGenre(Genre genre);
 }
