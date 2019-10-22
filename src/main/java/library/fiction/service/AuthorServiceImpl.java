@@ -47,7 +47,12 @@ public class AuthorServiceImpl implements AuthorService {
     public Author createAuthor(Author author) {
         Author createdAuthor = authorDAO.addAuthor(author);
         List<Book> books = author.getBooks();
-        bookAuthorService.addBookAuthor(createdAuthor, books);
+        for (Book book : books) {
+            List<Author> authorsFromBook = book.getAuthors();
+            authorsFromBook.add(author);
+            book.setAuthors(authorsFromBook);
+            bookService.editBook(book);
+        }
         return createdAuthor;
     }
 
@@ -61,8 +66,38 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public void editAuthor(Author author) {
         List<Book> books = author.getBooks();
-        bookAuthorService.editBookAuthor(author, books);
-        author.setBooks(books);
+        System.out.print("books from author: ");
+        System.out.println(books);
+
+        for (Book book : bookService.allBooks()) {
+            System.out.print("current book: ");
+            System.out.println(book);
+
+            List<Author> authorsFromBook = book.getAuthors();
+
+            System.out.print("authorsFromBook: ");
+            System.out.println(authorsFromBook);
+
+            if (books.contains(book)) {
+                if (!authorsFromBook.contains(author)) {
+
+                    System.out.println("add author");
+
+                    authorsFromBook.add(author);
+                } else {
+                    System.out.println("nothing");
+                }
+            } else {
+                System.out.println("delete author");
+
+                authorsFromBook.remove(author);
+            }
+            System.out.print("authorsFromBook after change: ");
+            System.out.println(authorsFromBook);
+
+            book.setAuthors(authorsFromBook);
+            bookService.editBook(book);
+        }
         authorDAO.editAuthor(author);
     }
 
